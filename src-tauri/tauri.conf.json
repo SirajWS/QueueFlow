@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "QueueFlow",
+  "version": "0.1.0",
+  "identifier": "com.queueflow.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:4000",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      { "title": "QueueFlow", "width": 1200, "height": 720, "resizable": true, "center": true, "decorations": true }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico", "icons/icon.png"]
+  }
+}

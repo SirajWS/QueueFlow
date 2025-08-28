@@ -1,0 +1,14 @@
+@reference "tailwindcss";
+
+/* etwas schmaler + weniger paddings */
+.app-wrap { @apply max-w-4xl mx-auto p-3; }
+.app-header { @apply flex items-center justify-between mb-2; }
+.grid { @apply grid gap-2 md:grid-cols-3; }
+.panel { @apply rounded-md border p-2 bg-[var(--panel)] border-[var(--border)] shadow-[var(--shadow)]; }
+
+button.secondary { @apply rounded-md px-2.5 py-1 text-sm border hover:opacity-90; border-color: var(--border); background: var(--surface-muted); }
+
+@layer base {
+  h1 { @apply text-xl font-bold; }
+  h2 { @apply text-base font-semibold; }
+}

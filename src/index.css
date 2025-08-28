@@ -1,0 +1,52 @@
+/* Tailwind aktivieren */
+@import "tailwindcss";
+/* ==== Theme Variables ==== */
+:root {
+  /* LIGHT */
+  --bg: #f6f7fb;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, .08);
+  --brand: #2563eb;        /* blue-600 */
+  --brand-600: #1d4ed8;    /* hover */
+  --surface-muted: #f1f5f9;/* slate-100 */
+  --shadow: 0 8px 24px rgba(15, 23, 42, .08);
+}
+
+/* DARK SLATE (Default) */
+html[data-theme="dark"] {
+  --bg: #0b0f1a;           /* sehr dunkles Blau/Schwarz */
+  --panel: #111827;        /* gray-900 */
+  --text: #e5e7eb;         /* gray-200 */
+  --muted: #9ca3af;        /* gray-400 */
+  --border: rgba(255,255,255,.10);
+  --brand: #60a5fa;        /* blue-400 */
+  --brand-600: #3b82f6;    /* blue-500 */
+  --surface-muted: #1f2937;/* gray-800 */
+  --shadow: 0 12px 32px rgba(2,6,23,.35);
+}
+
+/* Apply */
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Typo & helpers */
+@layer base {
+  h1 { @apply font-bold; font-size: 1.75rem; }
+  h2 { @apply font-semibold; font-size: 1.125rem; }
+}
+
+.no-print { display: block; }
+.print-only { display: none; }
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; width: 80mm; margin: 0 auto; padding: 10mm 5mm; text-align: center; }
+  .ticket-paper { border: 1px dashed #aaa; padding: 12px; }
+  .ticket-big { font-size: 2.5rem; font-weight: 800; }
+  .ticket-meta { font-size: .8rem; color: var(--muted); }
+  @page { margin: 5mm; size: auto; }
+}
