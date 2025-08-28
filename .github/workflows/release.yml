@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 jobs:
   tauri-build:
@@ -15,16 +16,28 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install frontend deps
         run: npm ci
 
-      - name: Install Rust
+      # Linux braucht WebKit & Co. – sonst schlägt der Build gern fehl
+      - name: Install Linux system deps
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgtk-3-dev libayatana-appindicator3-dev \
+            webkit2gtk-4.1 libwebkit2gtk-4.1-dev \
+            libssl-dev librsvg2-dev patchelf
+
+      - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install Tauri CLI
@@ -35,6 +48,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tauriScript: npm run tauri
+          args: --verbose
           tagName: ${{ github.ref_name }}
           releaseName: "QueueFlow ${{ github.ref_name }}"
           releaseDraft: false
