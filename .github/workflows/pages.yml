@@ -40,6 +40,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # legt die Pages-Site an / konfiguriert sie für Actions-Deploys
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      # veröffentlicht das Artefakt als Pages
       - id: deployment
         uses: actions/deploy-pages@v4
