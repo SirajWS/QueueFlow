@@ -1,16 +1,16 @@
 {
   "name": "queueflow",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "tauri": "tauri",
-  "tauri:dev": "tauri dev",
-  "tauri:build": "tauri build"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
