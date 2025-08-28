@@ -5,9 +5,10 @@
   "identifier": "com.queueflow.app",
   "build": {
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
     "devUrl": "http://localhost:4000",
-    "frontendDist": "../dist"
+    "frontendDist": "../dist",
+    "beforeBuildCommand": "npm run build"
+
   },
   "app": {
     "windows": [

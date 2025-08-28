@@ -6,6 +6,10 @@ on:
       - "v*"
   workflow_dispatch:
 
+# wichtig: Schreibrechte für Release/Assets
+permissions:
+  contents: write
+
 jobs:
   tauri-build:
     strategy:
@@ -27,7 +31,7 @@ jobs:
       - name: Install frontend deps
         run: npm ci
 
-      # Linux braucht WebKit & Co. – sonst schlägt der Build gern fehl
+      # Linux braucht zusätzliche Pakete für den Bundler
       - name: Install Linux system deps
         if: matrix.platform == 'ubuntu-latest'
         run: |
@@ -48,9 +52,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # sorgt dafür, dass "npm run tauri build" existiert
           tauriScript: npm run tauri
           args: --verbose
           tagName: ${{ github.ref_name }}
           releaseName: "QueueFlow ${{ github.ref_name }}"
           releaseDraft: false
           prerelease: false
+
+      # optional: zusätzlich alles als Actions-Artifact anhängen
+      - name: Upload artifacts (matrix)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-${{ matrix.platform }}
+          path: |
+            src-tauri/target/release/bundle/**/*
+          if-no-files-found: warn
